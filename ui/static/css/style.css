@@ -1,0 +1,91 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Pacifico&display=swap");
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Lato, sans-serif;
+}
+
+body {
+  padding: 24px;
+}
+
+.navbar {
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid black;
+  display: flex;
+  align-items: center;
+}
+
+h3 {
+  margin-bottom: 16px;
+}
+
+label {
+  margin-bottom: 8px;
+}
+
+button {
+  padding: 4px 24px;
+  cursor: pointer;
+}
+
+.button-wrapper {
+  display: flex;
+  margin-top: 4px;
+  gap: 8px;
+}
+
+input {
+  padding: 4px;
+}
+
+.wrapper {
+  display: flex;
+}
+
+.add-product-form {
+  padding: 24px;
+  width: 480px;
+}
+
+.edit-product-form {
+  padding: 24px;
+  width: 480px;
+}
+
+.add-product-form-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.product-item {
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.product-item-list {
+  padding: 24px;
+  margin-left: 24px;
+}
+
+.product-price-qty-tag {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.navbar-icon {
+  height: 64px;
+  width: 64px;
+  margin-right: 16px;
+}
