@@ -25,7 +25,7 @@ func ProductItem(product *models.Product) g.Node {
 				g.Text("Edit"),
 			),
 			Button(Class("button"),
-				g.Attr("hx-delete", fmt.Sprintf("/products/delete/%d", product.ID)),
+				g.Attr("hx-delete", fmt.Sprintf("/products/%d", product.ID)),
 				g.Attr("hx-target", "#product-item-list"),
 				g.Attr("hx-confirm", "Are you sure to delete this item?"),
 				g.Attr("hx-swap", "outerHTML"),

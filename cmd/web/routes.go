@@ -12,15 +12,14 @@ func (app *App) routes() http.Handler {
 
 	router.Handler(http.MethodGet, "/static/*filepath", http.FileServer(http.FS(ui.Files)))
 	router.HandlerFunc(http.MethodGet, "/", app.homeHandler)
+
+	router.HandlerFunc(http.MethodGet, "/products/create", app.addProductFormHandler)
+	router.HandlerFunc(http.MethodGet, "/products/edit/:id", app.editProductFormHandler)
+
 	router.HandlerFunc(http.MethodGet, "/products", app.getProductsHandler)
-
-	router.HandlerFunc(http.MethodGet, "/products/create", app.createProductGetHandler)
-	router.HandlerFunc(http.MethodPost, "/products/create", app.createProductPostHandler)
-
-	router.HandlerFunc(http.MethodGet, "/products/edit/:id", app.editProductGetHandler)
-	router.HandlerFunc(http.MethodPut, "/products/edit/:id", app.editProductPutHandler)
-
-	router.HandlerFunc(http.MethodDelete, "/products/delete/:id", app.deleteProductHandler)
+	router.HandlerFunc(http.MethodPost, "/products", app.createProductHandler)
+	router.HandlerFunc(http.MethodPut, "/products/:id", app.updateProductHandler)
+	router.HandlerFunc(http.MethodDelete, "/products/:id", app.deleteProductHandler)
 
 	return router
 }

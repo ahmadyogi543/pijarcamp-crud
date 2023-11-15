@@ -19,6 +19,30 @@ func (app *App) homeHandler(w http.ResponseWriter, r *http.Request) {
 	components.HomePage(products).Render(w)
 }
 
+func (app *App) addProductFormHandler(w http.ResponseWriter, r *http.Request) {
+	components.AddProductForm().Render(w)
+}
+
+func (app *App) editProductFormHandler(w http.ResponseWriter, r *http.Request) {
+	params := httprouter.ParamsFromContext(r.Context())
+	id, err := strconv.Atoi(params.ByName("id"))
+	if err != nil || id < 1 {
+		app.notFound(w)
+		return
+	}
+
+	product, err := app.products.Get(id)
+	if err != nil {
+		if errors.Is(err, models.ErrNoRecord) {
+			app.notFound(w)
+		} else {
+			app.serverError(w, err)
+		}
+		return
+	}
+	components.EditProductForm(product).Render(w)
+}
+
 func (app *App) getProductsHandler(w http.ResponseWriter, r *http.Request) {
 	products, err := app.products.GetAll()
 	if err != nil {
@@ -28,11 +52,7 @@ func (app *App) getProductsHandler(w http.ResponseWriter, r *http.Request) {
 	components.ProductItemList(products).Render(w)
 }
 
-func (app *App) createProductGetHandler(w http.ResponseWriter, r *http.Request) {
-	components.AddProductForm().Render(w)
-}
-
-func (app *App) createProductPostHandler(w http.ResponseWriter, r *http.Request) {
+func (app *App) createProductHandler(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 	if err != nil {
 		app.clientError(w, http.StatusBadRequest)
@@ -61,27 +81,7 @@ func (app *App) createProductPostHandler(w http.ResponseWriter, r *http.Request)
 	http.Redirect(w, r, "/products", http.StatusSeeOther)
 }
 
-func (app *App) editProductGetHandler(w http.ResponseWriter, r *http.Request) {
-	params := httprouter.ParamsFromContext(r.Context())
-	id, err := strconv.Atoi(params.ByName("id"))
-	if err != nil || id < 1 {
-		app.notFound(w)
-		return
-	}
-
-	product, err := app.products.Get(id)
-	if err != nil {
-		if errors.Is(err, models.ErrNoRecord) {
-			app.notFound(w)
-		} else {
-			app.serverError(w, err)
-		}
-		return
-	}
-	components.EditProductForm(product).Render(w)
-}
-
-func (app *App) editProductPutHandler(w http.ResponseWriter, r *http.Request) {
+func (app *App) updateProductHandler(w http.ResponseWriter, r *http.Request) {
 	params := httprouter.ParamsFromContext(r.Context())
 	id, err := strconv.Atoi(params.ByName("id"))
 	if err != nil || id < 1 {

@@ -14,7 +14,7 @@ func EditProductForm(product *models.Product) g.Node {
 		ProductFormFields(product),
 		Div(Class("button-wrapper"),
 			Button(Class("button"),
-				g.Attr("hx-put", fmt.Sprintf("/products/edit/%d", product.ID)),
+				g.Attr("hx-put", fmt.Sprintf("/products/%d", product.ID)),
 				g.Attr("hx-target", "#product-item-list"),
 				g.Attr("hx-swap", "outerHTML"),
 				g.Attr("hx-confirm", "Are you sure want to update the item?"),
