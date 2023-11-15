@@ -8,7 +8,7 @@ import (
 )
 
 func ProductFormField(id, name, title, placeholder, inputType string, value any) g.Node {
-	return Div(Class("add-product-form-field"),
+	return Div(Class("product-form-field"),
 		Label(
 			For(id),
 			g.Text(title),
