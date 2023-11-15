@@ -10,7 +10,7 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
 
-func (app *App) home(w http.ResponseWriter, r *http.Request) {
+func (app *App) homeHandler(w http.ResponseWriter, r *http.Request) {
 	products, err := app.products.GetAll()
 	if err != nil {
 		app.serverError(w, err)
@@ -19,7 +19,7 @@ func (app *App) home(w http.ResponseWriter, r *http.Request) {
 	components.HomePage(products).Render(w)
 }
 
-func (app *App) getProducts(w http.ResponseWriter, r *http.Request) {
+func (app *App) getProductsHandler(w http.ResponseWriter, r *http.Request) {
 	products, err := app.products.GetAll()
 	if err != nil {
 		app.serverError(w, err)
@@ -28,11 +28,11 @@ func (app *App) getProducts(w http.ResponseWriter, r *http.Request) {
 	components.ProductItemList(products).Render(w)
 }
 
-func (app *App) addProductView(w http.ResponseWriter, r *http.Request) {
+func (app *App) createProductGetHandler(w http.ResponseWriter, r *http.Request) {
 	components.AddProductForm().Render(w)
 }
 
-func (app *App) addProductPost(w http.ResponseWriter, r *http.Request) {
+func (app *App) createProductPostHandler(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 	if err != nil {
 		app.clientError(w, http.StatusBadRequest)
@@ -61,7 +61,7 @@ func (app *App) addProductPost(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/products", http.StatusSeeOther)
 }
 
-func (app *App) editProductView(w http.ResponseWriter, r *http.Request) {
+func (app *App) editProductGetHandler(w http.ResponseWriter, r *http.Request) {
 	params := httprouter.ParamsFromContext(r.Context())
 	id, err := strconv.Atoi(params.ByName("id"))
 	if err != nil || id < 1 {
@@ -81,7 +81,7 @@ func (app *App) editProductView(w http.ResponseWriter, r *http.Request) {
 	components.EditProductForm(product).Render(w)
 }
 
-func (app *App) editProductPost(w http.ResponseWriter, r *http.Request) {
+func (app *App) editProductPutHandler(w http.ResponseWriter, r *http.Request) {
 	params := httprouter.ParamsFromContext(r.Context())
 	id, err := strconv.Atoi(params.ByName("id"))
 	if err != nil || id < 1 {
@@ -126,7 +126,7 @@ func (app *App) editProductPost(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/products", http.StatusSeeOther)
 }
 
-func (app *App) delete(w http.ResponseWriter, r *http.Request) {
+func (app *App) deleteProductHandler(w http.ResponseWriter, r *http.Request) {
 	params := httprouter.ParamsFromContext(r.Context())
 	id, err := strconv.Atoi(params.ByName("id"))
 	if err != nil || id < 1 {
