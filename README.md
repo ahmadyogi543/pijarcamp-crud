@@ -27,6 +27,6 @@ Database dihubungkan ke aplikasi melalui flag "-dsn" dan berikut adalah contoh d
 root:@/pijarcamp
 ```
 
-## Tampilan Aplikasi
+## Demo Aplikasi
 
-![Gambar Home](notes/home.png)
+![Demo aplikasi](notes/demo.gif)
