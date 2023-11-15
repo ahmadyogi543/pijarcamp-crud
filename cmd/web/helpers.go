@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"net/http"
 	"runtime/debug"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func openDB(driverName string, dsn string) (*sql.DB, error) {

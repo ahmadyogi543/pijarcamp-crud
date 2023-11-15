@@ -7,7 +7,6 @@ import (
 	"os"
 
 	"github.com/ahmadyogi543/pijarcamp-crud/internal/models"
-	_ "github.com/go-sql-driver/mysql"
 )
 
 type App struct {
