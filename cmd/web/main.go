@@ -12,7 +12,7 @@ import (
 type App struct {
 	errorLog *log.Logger
 	infoLog  *log.Logger
-	products *models.ProductModel
+	products models.ProductModeler
 }
 
 func main() {
